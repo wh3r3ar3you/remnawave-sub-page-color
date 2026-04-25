@@ -1,9 +1,6 @@
 services:
     remnawave-subscription-page:
-        build:
-            context: .
-            dockerfile: docker/Dockerfile
-        image: remnawave/subscription-page:purple
+        image: intoxxx/remnawave-sub-page-color:latest
         container_name: remnawave-subscription-page
         hostname: remnawave-subscription-page
         restart: always

@@ -32,7 +32,7 @@ REMNAWAVE_API_TOKEN=your_api_token
 Запустите контейнер:
 
 ```bash
-docker compose up -d --build
+docker compose up -d
 ```
 
 По умолчанию страница будет доступна на:
@@ -142,11 +142,19 @@ ports:
 
 ## Сборка
 
-```bash
-docker compose build
+Обычно сборка не нужна: `docker-compose.yml` использует готовый образ из Docker Hub:
+
+```text
+intoxxx/remnawave-sub-page-color:latest
 ```
 
-Локальный тег образа:
+Если нужно собрать образ локально:
+
+```bash
+docker build -t remnawave/subscription-page:purple -f docker/Dockerfile .
+```
+
+Локальный тег после ручной сборки:
 
 ```text
 remnawave/subscription-page:purple
@@ -154,7 +162,7 @@ remnawave/subscription-page:purple
 
 ## Экспорт образа
 
-Сохранить образ в архив:
+Если образ собран локально, его можно сохранить в архив:
 
 ```bash
 docker save remnawave/subscription-page:purple | gzip > remnawave-subscription-page-theme-env.tar.gz
