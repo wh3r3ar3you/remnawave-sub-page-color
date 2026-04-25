@@ -1,0 +1,10 @@
+.env
+.codex
+link
+token
+*.tar
+*.tar.gz
+*.tgz
+*.log
+.DS_Store
+node_modules/
