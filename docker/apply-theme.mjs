@@ -295,12 +295,14 @@ const css = `:root,
   --mantine-primary-color-light-color: ${theme.primaryLightColor};
 }
 
+html,
 body {
   background:
     radial-gradient(circle at 20% 20%, rgba(${theme.accentRgb}, 0.14), transparent 30%),
     radial-gradient(circle at 80% 18%, rgba(${theme.accent2Rgb}, 0.1), transparent 28%),
     radial-gradient(circle at 72% 78%, rgba(${theme.accentSoftRgb}, 0.08), transparent 26%),
     ${theme.bodyGradient};
+  background-attachment: fixed;
 }
 
 .animated-background {
