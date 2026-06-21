@@ -440,11 +440,40 @@ img[alt="logo"] {
 }
 
 ._timelineRoot_1viu6_2 {
-  --tl-line-color: rgba(${theme.accentSoftRgb}, 0.26);
+  --tl-color: ${theme.primaryFilled};
+  --tl-line-color: rgba(${theme.accentSoftRgb}, 0.22);
+  --item-border-color: rgba(${theme.accentSoftRgb}, 0.16) !important;
+}
+
+._timelineRoot_1viu6_2 [data-line-active]:before {
+  border-color: rgba(${theme.accentRgb}, 0.52) !important;
+  filter: drop-shadow(0 0 8px rgba(${theme.accentRgb}, 0.22));
+}
+
+._timelineRoot_1viu6_2 .m_436178ff:before {
+  border-color: rgba(${theme.accentSoftRgb}, 0.18) !important;
 }
 
 ._timelineItemBullet_1viu6_10 {
-  filter: drop-shadow(0 0 8px rgba(${theme.accentRgb}, 0.18));
+  filter: drop-shadow(0 0 10px rgba(${theme.accentRgb}, 0.2));
+}
+
+._timelineItemBullet_1viu6_10 > * {
+  background:
+    linear-gradient(145deg, rgba(${theme.accentRgb}, 0.22), rgba(${theme.accent2Rgb}, 0.1)),
+    rgba(255, 255, 255, 0.03) !important;
+  border: 1px solid rgba(${theme.accentRgb}, 0.36) !important;
+  box-shadow:
+    0 0 18px rgba(${theme.accentRgb}, 0.14),
+    inset 0 0 16px rgba(${theme.accentRgb}, 0.1) !important;
+}
+
+._timelineItemBullet_1viu6_10 svg,
+._timelineItemBullet_1viu6_10 svg path,
+._bulletIconSvg_1viu6_15 svg,
+._bulletIconSvg_1viu6_15 svg path {
+  color: ${theme.primaryFilled} !important;
+  fill: currentColor !important;
 }
 
 ._appButton_19ebt_8 {
@@ -554,7 +583,8 @@ const bundlePath = path.join(assetsDir, jsFile);
 const bundle = fs.readFileSync(bundlePath, "utf8");
 let nextBundle = bundle
   .replace(/primaryColor:"[^"]+"/g, `primaryColor:"${theme.mantine}"`)
-  .replace(/primaryColor:`[^`]+`/g, `primaryColor:\`${theme.mantine}\``);
+  .replace(/primaryColor:`[^`]+`/g, `primaryColor:\`${theme.mantine}\``)
+  .replace(/timelineItemBullet\},color:`[^`]+`,lineWidth:2/g, `timelineItemBullet},color:\`${theme.mantine}\`,lineWidth:2`);
 
 if (bundle !== nextBundle) {
   fs.writeFileSync(bundlePath, nextBundle, "utf8");
