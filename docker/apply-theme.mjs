@@ -93,6 +93,11 @@ function envHex(name) {
   return parseHexColor(process.env[name]);
 }
 
+function gradientBaseColor(gradient) {
+  const match = String(gradient).match(/#[0-9a-f]{6}/i);
+  return match ? match[0].toLowerCase() : "#070312";
+}
+
 function buildHexTheme(accentHex) {
   const isDarkAccent = luminance(accentHex) < 0.18;
   const primaryFilled = isDarkAccent ? mixHex(accentHex, "#ffffff", 0.18) : accentHex;
@@ -285,6 +290,13 @@ const namedTheme = themes[rawThemeColor];
 const accentHex = envHex("THEME_ACCENT_COLOR") || parseHexColor(rawThemeColor);
 const theme = accentHex ? buildHexTheme(accentHex) : namedTheme || themes.purple;
 const appliedThemeName = accentHex ? accentHex : namedTheme ? rawThemeColor : "purple";
+const backgroundSolid = gradientBaseColor(theme.bodyGradient);
+const backgroundLayers = [
+  `radial-gradient(circle at 20% 20%, rgba(${theme.accentRgb}, 0.14), transparent 30%)`,
+  `radial-gradient(circle at 80% 18%, rgba(${theme.accent2Rgb}, 0.1), transparent 28%)`,
+  `radial-gradient(circle at 72% 78%, rgba(${theme.accentSoftRgb}, 0.08), transparent 26%)`,
+  theme.bodyGradient
+].join(", ");
 
 const css = `:root,
 :host {
@@ -293,20 +305,39 @@ const css = `:root,
   --mantine-primary-color-light: ${theme.primaryLight};
   --mantine-primary-color-light-hover: ${theme.primaryLightHover};
   --mantine-primary-color-light-color: ${theme.primaryLightColor};
+  --theme-bg-base: ${backgroundSolid};
+  --theme-bg-layers: ${backgroundLayers};
+}
+
+html {
+  background-color: var(--theme-bg-base) !important;
+}
+
+html::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -3;
+  pointer-events: none;
+  background-color: var(--theme-bg-base);
+  background-image: var(--theme-bg-layers);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
 html,
-body {
-  background:
-    radial-gradient(circle at 20% 20%, rgba(${theme.accentRgb}, 0.14), transparent 30%),
-    radial-gradient(circle at 80% 18%, rgba(${theme.accent2Rgb}, 0.1), transparent 28%),
-    radial-gradient(circle at 72% 78%, rgba(${theme.accentSoftRgb}, 0.08), transparent 26%),
-    ${theme.bodyGradient};
-  background-attachment: fixed;
+body,
+#root {
+  background: transparent !important;
+  background-image: none !important;
+  background-size: auto !important;
+  min-height: 100%;
 }
 
 .animated-background {
-  background:
+  background-color: var(--theme-bg-base);
+  background-image:
     radial-gradient(ellipse 58% 38% at 18% 22%, rgba(${theme.accentRgb}, 0.16), transparent 50%),
     radial-gradient(ellipse 42% 34% at 82% 18%, rgba(${theme.accent2Rgb}, 0.11), transparent 48%),
     radial-gradient(ellipse 48% 40% at 76% 78%, rgba(${theme.accentSoftRgb}, 0.09), transparent 50%);
