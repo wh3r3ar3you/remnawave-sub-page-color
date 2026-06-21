@@ -479,6 +479,66 @@ img[alt="logo"] {
   fill: currentColor;
 }
 
+._appButtonActive_19ebt_34 ._bgIcon_19ebt_30,
+._appButtonActive_19ebt_34 ._bgIconActive_19ebt_73,
+._appButtonActive_19ebt_34 ._bgIcon_19ebt_30 svg,
+._appButtonActive_19ebt_34 ._bgIconActive_19ebt_73 svg,
+._appButtonActive_19ebt_34 ._bgIcon_19ebt_30 svg path,
+._appButtonActive_19ebt_34 ._bgIconActive_19ebt_73 svg path {
+  color: rgba(${theme.accentRgb}, 0.42);
+  fill: currentColor;
+}
+
+._stepBlock_1qsxc_1 button,
+._root_x1nv4_1 button,
+._accordionContent_w29pm_27 button {
+  --button-bg: transparent;
+  --button-hover: transparent;
+  --button-color: ${theme.primaryLightColor};
+  --button-bd: calc(0.0625rem * var(--mantine-scale)) solid rgba(${theme.accentSoftRgb}, 0.16);
+  background:
+    linear-gradient(90deg, rgba(${theme.accentRgb}, 0.16), rgba(${theme.accent2Rgb}, 0.07)),
+    rgba(255, 255, 255, 0.035) !important;
+  border: 1px solid rgba(${theme.accentSoftRgb}, 0.16) !important;
+  border-left: 3px solid ${theme.primaryFilled} !important;
+  color: ${theme.primaryLightColor} !important;
+  box-shadow:
+    inset 4px 0 12px -4px rgba(${theme.accentRgb}, 0.34),
+    0 0 16px rgba(${theme.accentRgb}, 0.08) !important;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease !important;
+}
+
+._stepBlock_1qsxc_1 button:hover,
+._root_x1nv4_1 button:hover,
+._accordionContent_w29pm_27 button:hover {
+  background:
+    linear-gradient(90deg, rgba(${theme.accentRgb}, 0.24), rgba(${theme.accent2Rgb}, 0.12)),
+    rgba(255, 255, 255, 0.05) !important;
+  border-color: rgba(${theme.accentRgb}, 0.3) !important;
+  border-left-color: ${theme.primaryFilledHover} !important;
+  box-shadow:
+    inset 4px 0 14px -4px rgba(${theme.accentRgb}, 0.42),
+    0 0 22px rgba(${theme.accentRgb}, 0.14) !important;
+  transform: translateY(-1px);
+}
+
+._stepBlock_1qsxc_1 button span,
+._root_x1nv4_1 button span,
+._accordionContent_w29pm_27 button span,
+._stepBlock_1qsxc_1 button svg,
+._root_x1nv4_1 button svg,
+._accordionContent_w29pm_27 button svg,
+._stepBlock_1qsxc_1 button svg path,
+._root_x1nv4_1 button svg path,
+._accordionContent_w29pm_27 button svg path {
+  color: ${theme.primaryFilled} !important;
+  fill: currentColor !important;
+}
+
 .info-card-cyan,
 ._iconCyan_11dhi_15,
 ._cyan_1oql7_11 {
@@ -492,7 +552,9 @@ fs.writeFileSync(cssPath, css, "utf8");
 
 const bundlePath = path.join(assetsDir, jsFile);
 const bundle = fs.readFileSync(bundlePath, "utf8");
-const nextBundle = bundle.replace(/primaryColor:"[^"]+"/g, `primaryColor:"${theme.mantine}"`);
+let nextBundle = bundle
+  .replace(/primaryColor:"[^"]+"/g, `primaryColor:"${theme.mantine}"`)
+  .replace(/primaryColor:`[^`]+`/g, `primaryColor:\`${theme.mantine}\``);
 
 if (bundle !== nextBundle) {
   fs.writeFileSync(bundlePath, nextBundle, "utf8");
