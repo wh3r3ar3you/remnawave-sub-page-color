@@ -526,17 +526,10 @@ img[alt="logo"] {
   transform: translateY(-1px);
 }
 
-._stepBlock_1qsxc_1 button span,
-._root_x1nv4_1 button span,
-._accordionContent_w29pm_27 button span,
 ._stepBlock_1qsxc_1 button svg,
 ._root_x1nv4_1 button svg,
-._accordionContent_w29pm_27 button svg,
-._stepBlock_1qsxc_1 button svg path,
-._root_x1nv4_1 button svg path,
-._accordionContent_w29pm_27 button svg path {
+._accordionContent_w29pm_27 button svg {
   color: ${theme.primaryFilled} !important;
-  fill: currentColor !important;
 }
 
 .info-card-cyan,
